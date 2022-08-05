@@ -4,14 +4,14 @@ import 'package:mysql_client/src/mysql_client/connection.dart';
 
 class DatabaseClient implements IDatabaseClient {
   String host = dotenv.get('HOST');
-  int port = dotenv.get('PORT') as int;
+  var port = dotenv.get('PORT');
   String username = dotenv.get('USERNAME');
   String password = dotenv.get('PASSWORD');
   @override
   Future<MySQLConnection> databaseConnect() async {
     final conn = await MySQLConnection.createConnection(
         host: host,
-        port: port,
+        port: int.parse(port),
         userName: username,
         password: password,
         databaseName: 'booksDB');
