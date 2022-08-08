@@ -1,16 +1,46 @@
-# books_app
+# Flutter - Book List App
+Book list app with MySql database
 
-A new Flutter project.
+## Run Locally
 
-## Getting Started
+Clone the project
 
-This project is a starting point for a Flutter application.
+```bash
+  git clone https://github.com/yagizdo/books_app.git
+```
 
-A few resources to get you started if this is your first Flutter project:
+Go to the project directory
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+  cd books_app
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Install dependencies
+
+```bash
+  flutter pub get
+```
+
+Run App
+
+```bash
+  flutter run
+```
+
+##  Libraries I use in the template:
+
+- Flutter screenutil : https://pub.dev/packages/flutter_screenutil
+- Adaptive Theme : https://pub.dev/packages/adaptive_theme
+- Flutter dotenv : https://pub.dev/packages/flutter_dotenv
+- MySql Client : https://pub.dev/packages/mysql_client
+
+## Screenshot
+
+![Screen Shot 2022-08-08 at 16 31 51](https://user-images.githubusercontent.com/31064552/183429947-29e03b1c-967c-4af0-91cc-1c43a07e9cc6.png)
+
+
+
+
+## Contributing
+
+Contributions are always welcome!
