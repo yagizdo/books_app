@@ -1,6 +1,7 @@
 import 'package:books_app/core/service/database_client.dart';
+import 'package:books_app/model/book.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mysql_client/mysql_client.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -10,42 +11,50 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  late var conn;
+  // Books
+  List<Book> booksList = [];
+
+  // Sql Connection
+  late MySQLConnection conn;
+
+  // Db connect
   Future<void> connectToDB() async {
     conn = await DatabaseClient().databaseConnect();
     conn.connect();
   }
 
-  Future<void> getUser() async {
-    var result = await conn.execute("SELECT book_name FROM booksDB.books;");
-    print(result.runtimeType);
+  Future<void> getBook() async {
+    var result = await conn.execute("SELECT * FROM booksDB.books;");
 
-    for (final row in result.rows) {
-      print(row.assoc());
+    for (var book in result.rows) {
+      setState(() {
+        booksList.add(Book.fromJson(book.assoc()));
+      });
     }
   }
 
   @override
   void initState() {
     connectToDB();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          getUser();
-        },
-      ),
-      body: Center(
-        child: Text(
-          'Home View',
-          style: TextStyle(fontSize: 20.sp),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            getBook();
+          },
         ),
-      ),
-    );
+        body: ListView.builder(
+          itemCount: booksList.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(booksList[index].bookName!),
+              subtitle: Text(booksList[index].bookWriter!),
+            );
+          },
+        ));
   }
 }
